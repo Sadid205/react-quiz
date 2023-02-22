@@ -1,64 +1,32 @@
-import { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
-import Button from "./Button";
-import Form from "./Form";
-import TextInput from "./TextInput";
+import classes from "../../styles/Login.module.css";
+import Button from "../Button";
+import Form from "../Form";
+import Illustration from "../Illustration";
+import TextInput from "../TextInput";
 
-export default function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const [error, setError] = useState();
-  const [loading, setLoading] = useState();
-
-  const { login } = useAuth();
-  const history = useHistory();
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-
-    try {
-      setError("");
-      setLoading(true);
-      await login(email, password);
-      history.push("/");
-    } catch (err) {
-      console.log(err);
-      setLoading(false);
-      setError("Failed to login!");
-    }
-  }
-
+export default function Login() {
   return (
-    <Form style={{ height: "330px" }} onSubmit={handleSubmit}>
-      <TextInput
-        type="text"
-        placeholder="Enter email"
-        icon="alternate_email"
-        required
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
+    <>
+      <h1>Login to your account</h1>
 
-      <TextInput
-        type="password"
-        placeholder="Enter password"
-        icon="lock"
-        required
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+      <div className="column">
+        <Illustration />
+        <Form className={`${classes.login}`}>
+          <TextInput
+            type="text"
+            placeholder="Enter email"
+            icon="alternate_email"
+          />
 
-      <Button type="submit" disabled={loading}>
-        <span>Submit Now</span>
-      </Button>
+          <TextInput type="password" placeholder="Enter password" icon="lock" />
 
-      {error && <p className="error">{error}</p>}
+          <Button>Submit Now</Button>
 
-      <div className="info">
-        Don't have an account? <Link to="/signup">Signup</Link> instead.
+          <div className="info">
+            Don't have an account? <a href="signup.html">Signup</a> instead.
+          </div>
+        </Form>
       </div>
-    </Form>
+    </>
   );
 }

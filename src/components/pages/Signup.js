@@ -3,7 +3,7 @@ import Button from "../Button";
 import Checkbox from "../Checkbox";
 import Form from "../Form";
 import Illustration from "../Illustration";
-import TextInput from "../Textinput";
+import TextInput from "../TextInput";
 
 export default function Signup() {
   return (
